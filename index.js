@@ -1,8 +1,9 @@
 import program from 'commander';
-import { version, description } from './package.json';
 
 program
-  .description(description)
-  .version(version);
+  .description('Compares two configuration files and shows a difference.')
+  .version('1.0.0')
+  .arguments('<firstConfig> <secondConfig>')
+  .option('-f, --format [type]', 'output format');
 
 export default program;
