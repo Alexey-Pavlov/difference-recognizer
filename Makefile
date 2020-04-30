@@ -2,10 +2,13 @@ install:
 	npm install
 
 start: 
-	npx node bin/gendiff.js
+	gendiff before.json after.json
 
-publish:
-	npm publish --dry-run
+babel: 
+	npx babel src --out-dir dist
 
 lint:
 	npx eslint .
+
+publish:
+	npm publish --dry-run
