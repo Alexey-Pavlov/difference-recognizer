@@ -13,8 +13,6 @@ gendiff
     const beforeObj = JSON.parse(before);
     const after = fs.readFileSync(secondPath);
     const afterObj = JSON.parse(after);
-    console.log(beforeObj);
-    console.log(afterObj);
     compareResult(beforeObj, afterObj);
   });
 
