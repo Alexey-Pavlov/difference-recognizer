@@ -1,6 +1,11 @@
 const _ = require('lodash');
+const fs = require('fs');
 
-const compareResult = (beforeObj, afterObj) => {
+const compareResult = (firstPath, secondPath) => {
+  const before = fs.readFileSync(firstPath);
+  const beforeObj = JSON.parse(before);
+  const after = fs.readFileSync(secondPath);
+  const afterObj = JSON.parse(after);
   const keysBefore = Object.keys(beforeObj);
   const keysAfter = Object.keys(afterObj);
   const allKeys = _.union(keysBefore, keysAfter);
@@ -21,6 +26,7 @@ const compareResult = (beforeObj, afterObj) => {
   }, []);
   const result2 = `{\n${result.join(',\n')}\n}`;
   console.log(result2);
+  return result2;
 };
 
 export default compareResult;
