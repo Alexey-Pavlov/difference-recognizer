@@ -8,5 +8,5 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 
 test('comparing flat json files', () => {
   const compareResultTxt = readFile('compareResult.txt').trim();
-  expect(compareResult('../before.json', '../after.json').trim()).toEqual(compareResultTxt);
+  expect(compareResult(getFixturePath('before.json'), getFixturePath('after.json')).trim()).toEqual(compareResultTxt);
 });
