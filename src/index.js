@@ -5,9 +5,7 @@ const _ = require('lodash');
 const compareResult = (firstPath, secondPath) => {
   const beforeObj = parse(firstPath);
   const afterObj = parse(secondPath);
-  const keysBefore = Object.keys(beforeObj);
-  const keysAfter = Object.keys(afterObj);
-  const allKeys = _.union(keysBefore, keysAfter);
+  const allKeys = _.union(Object.keys(beforeObj), Object.keys(afterObj));
   const result = allKeys.reduce((acc, item) => {
     if ((!_.has(beforeObj, item)) && (_.has(afterObj, item))) {
       acc.push(`  + ${item}: ${afterObj[item]}`);
