@@ -7,6 +7,9 @@ startjson:
 startyml: 
 	gendiff before.yml after.yml
 
+startini: 
+	gendiff before.ini after.ini
+
 babel: 
 	npx babel src --out-dir dist
 
