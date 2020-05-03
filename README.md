@@ -18,3 +18,6 @@ $ make install
 
 ## Comparison of flat files (JSON)
 <a href="https://asciinema.org/a/zHIAOTDK7HPiw1hCxrbktCrb2" target="_blank"><img src="https://asciinema.org/a/zHIAOTDK7HPiw1hCxrbktCrb2.svg" /></a>
+
+## Comparison of flat files (yaml)
+<a href="https://asciinema.org/a/V8leTDIJ28IzosbEwpC71mAPy" target="_blank"><img src="https://asciinema.org/a/V8leTDIJ28IzosbEwpC71mAPy.svg" /></a>
