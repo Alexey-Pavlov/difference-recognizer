@@ -21,3 +21,6 @@ $ make install
 
 ## Comparison of flat files (yaml)
 <a href="https://asciinema.org/a/V8leTDIJ28IzosbEwpC71mAPy" target="_blank"><img src="https://asciinema.org/a/V8leTDIJ28IzosbEwpC71mAPy.svg" /></a>
+
+## Comparison of flat files (ini)
+<a href="https://asciinema.org/a/YCzM4n1gNCKxdKIWp889ZWwTd" target="_blank"><img src="https://asciinema.org/a/YCzM4n1gNCKxdKIWp889ZWwTd.svg" /></a>
