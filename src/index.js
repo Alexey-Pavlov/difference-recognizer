@@ -1,11 +1,10 @@
+import parse from './parsers.js';
+
 const _ = require('lodash');
-const fs = require('fs');
 
 const compareResult = (firstPath, secondPath) => {
-  const before = fs.readFileSync(firstPath);
-  const beforeObj = JSON.parse(before);
-  const after = fs.readFileSync(secondPath);
-  const afterObj = JSON.parse(after);
+  const beforeObj = parse(firstPath);
+  const afterObj = parse(secondPath);
   const keysBefore = Object.keys(beforeObj);
   const keysAfter = Object.keys(afterObj);
   const allKeys = _.union(keysBefore, keysAfter);
@@ -24,7 +23,7 @@ const compareResult = (firstPath, secondPath) => {
     }
     return acc;
   }, []);
-  const result2 = `{\n${result.join(',\n')}\n}`;
+  const result2 = `{\n${result.join('\n')}\n}`;
   console.log(result2);
   return result2;
 };

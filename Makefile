@@ -1,8 +1,11 @@
 install:
 	npm install
 
-start: 
+startjson: 
 	gendiff before.json after.json
+
+startyml: 
+	gendiff before.yml after.yml
 
 babel: 
 	npx babel src --out-dir dist

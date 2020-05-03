@@ -10,3 +10,8 @@ test('comparing flat json files', () => {
   const compareResultTxt = readFile('compareResult.txt').trim();
   expect(compareResult(getFixturePath('before.json'), getFixturePath('after.json')).trim()).toEqual(compareResultTxt);
 });
+
+test('comparing flat yaml files', () => {
+  const compareResultTxt = readFile('compareResult.txt').trim();
+  expect(compareResult(getFixturePath('before.yml'), getFixturePath('after.yml')).trim()).toEqual(compareResultTxt);
+});
