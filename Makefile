@@ -4,11 +4,20 @@ install:
 startjson: 
 	gendiff before.json after.json
 
+startjsonRecursive:
+	gendiff beforeRecursive.json afterRecursive.json
+
 startyml: 
 	gendiff before.yml after.yml
 
+startymlRecursive:
+	gendiff beforeRecursive.yml afterRecursive.yml
+
 startini: 
 	gendiff before.ini after.ini
+
+startiniRecursive: 
+	gendiff beforeRecursive.ini afterRecursive.ini
 
 babel: 
 	npx babel src --out-dir dist

@@ -13,13 +13,14 @@ beforeEach(() => {
 });
 
 test('comparing flat json files', () => {
-  expect(compareResult(getFixturePath('before.json'), getFixturePath('after.json')).trim()).toEqual(compareResultTxt);
+  expect(compareResult(getFixturePath('/recursive/beforeRecursive.json'), getFixturePath('/recursive/afterRecursive.json')).trim()).toEqual(compareResultTxt);
 });
 
 test('comparing flat yaml files', () => {
-  expect(compareResult(getFixturePath('before.yml'), getFixturePath('after.yml')).trim()).toEqual(compareResultTxt);
+  expect(compareResult(getFixturePath('/recursive/beforeRecursive.yml'), getFixturePath('/recursive/afterRecursive.yml')).trim()).toEqual(compareResultTxt);
 });
 
 test('comparing flat ini files', () => {
-  expect(compareResult(getFixturePath('before.ini'), getFixturePath('after.ini')).trim()).toEqual(compareResultTxt);
+  console.log(compareResult(getFixturePath('/recursive/beforeRecursive.ini'), getFixturePath('/recursive/afterRecursive.ini')).trim());
+  expect(compareResult(getFixturePath('/recursive/beforeRecursive.ini'), getFixturePath('/recursive/afterRecursive.ini')).trim()).toEqual(compareResultTxt);
 });
