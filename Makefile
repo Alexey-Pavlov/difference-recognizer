@@ -19,6 +19,10 @@ startini:
 startiniRecursive: 
 	gendiff beforeRecursive.ini afterRecursive.ini
 
+startPlainJSON:
+	make babel
+	gendiff --format plain beforeRecursive.json afterRecursive.json
+
 babel: 
 	npx babel src --out-dir dist
 

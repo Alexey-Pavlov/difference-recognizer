@@ -1,16 +1,7 @@
 import parse from './parsers.js';
+import changeFormatter from './formatters/index';
 
 const _ = require('lodash');
-
-const getIndentation = (depth) => '  '.repeat(depth);
-
-const stringify = (value, depth) => {
-  if (typeof value === 'object') {
-    const lines = Object.keys(value).map((key) => `${getIndentation(depth + 4)}${key}: ${value[key]}\n`);
-    return `{\n${lines}${getIndentation(depth + 2)}}`;
-  }
-  return value;
-};
 
 const getAst = (objFirstFile, objSecondFile) => {
   const keysFiles = _.union(Object.keys(objFirstFile), Object.keys(objSecondFile)).sort();
@@ -33,7 +24,7 @@ const getAst = (objFirstFile, objSecondFile) => {
       // console.log('PRE RECURSIVE!!!');
       if (valueFirst instanceof Object && valueSecond instanceof Object) {
         // console.log('RECURSIVE!!!');
-        return { ...acc, [key]: { children: getAst(valueFirst, valueSecond) } };
+        return { ...acc, [key]: { children: getAst(valueFirst, valueSecond), status: 'nested' } };
       }
       if (valueFirst === valueSecond) {
         return { ...acc, [key]: { value: valueFirst, status: 'notChanged' } };
@@ -48,35 +39,13 @@ const getAst = (objFirstFile, objSecondFile) => {
   }, {});
 };
 
-const stylish = (ast) => {
-  const getLines = (nodes, depth = 0) => _.keys(nodes).map((key) => {
-    const { children, value, status } = nodes[key];
-
-    if (children !== undefined) {
-      return `${getIndentation(depth + 2)}${key}: {\n${_.flatten(getLines(children, depth + 2))
-        .join('\n')}\n${getIndentation(depth + 2)}}`;
-    }
-
-    const line = {
-      added: `+ ${key}: ${stringify(value, depth)}`,
-      removed: `- ${key}: ${stringify(value, depth)}`,
-      notChanged: `  ${key}: ${stringify(value, depth)}`,
-      changed: [`+ ${key}: ${stringify(value.new, depth)}\n${getIndentation(depth + 1)}- ${key}: ${stringify(value.old, depth)}`],
-    };
-    return `${getIndentation(depth + 1)}${line[status]}`;
-  });
-
-  const lines = ((getLines(ast))).join('\n');
-  return `{\n${lines}\n}`;
-};
-
-const compareResult = (firstPath, secondPath) => {
+const compareResult = (firstPath, secondPath, format) => {
   const beforeObj = parse(firstPath);
   const afterObj = parse(secondPath);
-  console.log('<<<Before object>>>');
-  console.log(beforeObj);
-  console.log('<<<After object>>>');
-  console.log(afterObj);
+  // console.log('<<<Before object>>>');
+  // console.log(beforeObj);
+  // console.log('<<<After object>>>');
+  // console.log(afterObj);
 
   // const allKeys = _.union(Object.keys(beforeObj), Object.keys(afterObj));
   // console.log(allKeys);
@@ -102,8 +71,7 @@ const compareResult = (firstPath, secondPath) => {
 
   // console.log('<<<AST DIFF>>>');
   // console.log(ast);
-  console.log(stylish(ast));
-  return stylish(ast);
+  return changeFormatter(ast, format);
 };
 
 export default compareResult;
