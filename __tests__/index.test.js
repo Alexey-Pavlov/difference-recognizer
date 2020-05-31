@@ -8,10 +8,12 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 
 let compareResultRecursive;
 let compareResultPlain;
+let compareResultJSON;
 
 beforeEach(() => {
   compareResultRecursive = readFile('compareResultRecursive.txt');
   compareResultPlain = readFile('compareResultPlain.txt');
+  compareResultJSON = readFile('compareResultJSON.txt');
 });
 
 test('comparing recursive json files', () => {
@@ -36,4 +38,16 @@ test('comparing recursive yaml files with plain format result', () => {
 
 test('comparing recursive ini files with plain format result', () => {
   expect(compareResult(getFixturePath('beforeRecursive.ini'), getFixturePath('afterRecursive.ini'), 'plain').trim()).toEqual(compareResultPlain);
+});
+
+test('comparing recursive json files with JSON format result', () => {
+  expect(compareResult(getFixturePath('beforeRecursive.json'), getFixturePath('afterRecursive.json'), 'json').trim()).toEqual(compareResultJSON);
+});
+
+test('comparing recursive yaml files with JSON format result', () => {
+  expect(compareResult(getFixturePath('beforeRecursive.yml'), getFixturePath('afterRecursive.yml'), 'json').trim()).toEqual(compareResultJSON);
+});
+
+test('comparing recursive ini files with JSON format result', () => {
+  expect(compareResult(getFixturePath('beforeRecursive.ini'), getFixturePath('afterRecursive.ini'), 'json').trim()).toEqual(compareResultJSON);
 });
