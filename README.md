@@ -24,3 +24,27 @@ $ make install
 
 ## Comparison of flat files (ini)
 <a href="https://asciinema.org/a/YCzM4n1gNCKxdKIWp889ZWwTd" target="_blank"><img src="https://asciinema.org/a/YCzM4n1gNCKxdKIWp889ZWwTd.svg" /></a>
+
+## Three types of output formats
+
+```
+gendiff --format tree filename1 filename2
+```
+
+### Tree format of output
+
+[![asciicast](https://asciinema.org/a/dxMta3cdJZFxJ7Dmeve6wU5xb.svg)](https://asciinema.org/a/dxMta3cdJZFxJ7Dmeve6wU5xb)
+```
+gendiff --format plain filename1 filename2
+```
+
+### Plain format of output
+
+[![asciicast](https://asciinema.org/a/tmPElivYPTjBNtOeBkA3SpfRU.svg)](https://asciinema.org/a/tmPElivYPTjBNtOeBkA3SpfRU)
+
+### JSON format of ouput
+```
+gendiff --format json filename1 filename2
+```
+
+[![asciicast](https://asciinema.org/a/wRbtAPA73JdjETQs5eJEBmky1.svg)](https://asciinema.org/a/wRbtAPA73JdjETQs5eJEBmky1)
