@@ -3,9 +3,6 @@ import renderPlain from './renderPlain.js';
 import renderJSON from './renderJSON.js';
 
 const changeFormatter = (diff, format) => {
-  // if (format === 'recursive') {
-
-  // }
   if (format === 'plain') {
     return renderPlain(diff);
   }

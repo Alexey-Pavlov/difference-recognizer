@@ -1,22 +1,7 @@
-// import * as _ from 'lodash';
-
-const fs = require('fs');
-const yaml = require('js-yaml');
-const path = require('path');
-const ini = require('ini');
-
-// const processIni = (iniObj) => {
-//   const iter = (value) => {
-//     if (!_.isPlainObject(value)) {
-//       return parseInt(value, 10) || value;
-//     }
-//     return processIni(value);
-//   };
-//   const parsedEntries = Object.entries(iniObj).map(([key, value]) => [key, iter(value)]);
-//   console.log('PARSED ENTRIES');
-//   console.log(parsedEntries);
-//   return Object.fromEntries(parsedEntries);
-// };
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
+import ini from 'ini';
 
 const parse = (pathOfFile) => {
   const file = fs.readFileSync(pathOfFile, 'utf-8');
