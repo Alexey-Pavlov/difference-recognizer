@@ -2,7 +2,7 @@ import stylish from './renderRecursive.js';
 import renderPlain from './renderPlain.js';
 import renderJSON from './renderJSON.js';
 
-const changeFormatter = (diff, format) => {
+const chooseFormatter = (diff, format) => {
   if (format === 'plain') {
     return renderPlain(diff);
   }
@@ -12,4 +12,4 @@ const changeFormatter = (diff, format) => {
   return stylish(diff);
 };
 
-export default changeFormatter;
+export default chooseFormatter;
