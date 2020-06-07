@@ -9,5 +9,3 @@ gendiff
   .action((firstPath, secondPath) => {
     compareResult(firstPath, secondPath, gendiff.format);
   });
-
-export default gendiff;
