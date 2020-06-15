@@ -10,7 +10,7 @@ test.each([
   ['json', 'recursive'], ['yml', 'recursive'], ['ini', 'recursive'],
   ['json', 'plain'], ['yml', 'plain'], ['ini', 'plain'],
   ['json', 'json'], ['yml', 'json'], ['ini', 'json']])(
-  '%s', (type, format) => {
+  '%# %s %s', (type, format) => {
     const before = getFixturePath(`before.${type}`);
     const after = getFixturePath(`after.${type}`);
     const result = compareResult(before, after, format);

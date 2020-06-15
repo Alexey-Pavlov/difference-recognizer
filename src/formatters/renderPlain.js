@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 const propertyValues = {
   string: (value) => `'${value}'`,
   number: (value) => value,
@@ -10,22 +8,23 @@ const propertyValues = {
 const getValue = (value) => propertyValues[typeof value](value);
 
 const renderPlain = (ast) => {
-  const iter = (nodes, path = '') => _.keys(nodes).map((key) => {
-    const { children, value, status } = nodes[key];
-    switch (status) {
+  const iter = (nodes, path = '') => nodes.map((key) => {
+    switch (key.status) {
       case 'added':
-        return `Property ${path}${key} was added with value: ${getValue(value)}`;
+        return `Property ${path}${key.name} was added with value: ${getValue(key.value)}`;
       case 'removed':
-        return `Property ${path}${key} was deleted`;
+        return `Property ${path}${key.name} was deleted`;
       case 'changed':
-        return `Property ${path}${key} was changed from ${getValue(value.old)} to ${getValue(value.new)}`;
-      case 'nested':
-        return `${iter(children, `${path}${key}.`).filter((node) => node !== null).join('\n')}`;
-      default:
+        return `Property ${path}${key.name} was changed from ${getValue(key.value.old)} to ${getValue(key.value.new)}`;
+      case 'notChanged':
         return null;
+      case 'nested':
+        return `${iter(key.children, `${path}${key.name}.`).filter((node) => node !== null).join('\n')}`;
+      default:
+        throw new Error(`${key.status} is unknown. Possible statuses: added, removed, notChanged, changed, nested.`);
     }
   });
-  console.log(iter(ast).join('\n'));
+
   return iter(ast).join('\n');
 };
 

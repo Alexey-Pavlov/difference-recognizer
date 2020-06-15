@@ -3,34 +3,42 @@ const _ = require('lodash');
 const getIndent = (depth) => '  '.repeat(depth);
 
 const stringify = (value, depth) => {
-  if (typeof value === 'object') {
-    const lines = Object.keys(value).map((key) => `${getIndent(depth + 4)}${key}: ${value[key]}\n`);
-    return `{\n${lines}${getIndent(depth + 2)}}`;
+  if (typeof value !== 'object') {
+    return value;
   }
-  return value;
+
+  const lineBeginIndents = getIndent(depth + 2);
+  const lineEndIndents = getIndent(depth + 1);
+  const allKeys = _.keys(value);
+  const lines = allKeys.map((key) => `${lineBeginIndents}  ${key}: ${value[key]}`);
+
+  return `{\n${lines.join('\n')}\n${lineEndIndents}}`;
 };
 
 const stylish = (ast) => {
-  const iter = (nodes, depth = 0) => _.keys(nodes).map((key) => {
-    const { children, value, status } = nodes[key];
+  const iter = (nodes, depth = 1) => nodes.map((key) => {
+    const indents = getIndent(depth);
+    const text = stringify(key.value, depth);
 
-    if (children !== undefined) {
-      return `${getIndent(depth + 2)}${key}: {\n${_.flatten(iter(children, depth + 2))
-        .join('\n')}\n${getIndent(depth + 2)}}`;
+    switch (key.status) {
+      case 'added':
+        return `${indents}+ ${key.name}: ${text}`;
+      case 'removed':
+        return `${indents}- ${key.name}: ${text}`;
+      case 'notChanged':
+        return `${indents}  ${key.name}: ${text}`;
+      case 'changed':
+        return `${indents}+ ${key.name}: ${stringify(key.value.new, depth)}\n${indents}- ${key.name}: ${stringify(key.value.old, depth)}`;
+      case 'nested':
+        return `${indents}  ${key.name}: {\n${(iter(key.children, depth + 2))
+          .join('\n')}\n${getIndent(depth + 1)}}`;
+      default:
+        throw new Error(`${key.status} is unknown. Possible statuses: added, removed, notChanged, changed, nested.`);
     }
-
-    const line = {
-      added: `+ ${key}: ${stringify(value, depth)}`,
-      removed: `- ${key}: ${stringify(value, depth)}`,
-      notChanged: `  ${key}: ${stringify(value, depth)}`,
-      changed: [`+ ${key}: ${stringify(value.new, depth)}\n${getIndent(depth + 1)}- ${key}: ${stringify(value.old, depth)}`],
-    };
-    return `${getIndent(depth + 1)}${line[status]}`;
   });
 
-  const lines = ((iter(ast))).join('\n');
-  console.log(`{\n${lines}\n}`);
-  return `{\n${lines}\n}`;
+  return `{\n${(_.flattenDeep(iter(ast))).join('\n')}\n}`;
 };
+
 
 export default stylish;

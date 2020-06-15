@@ -9,6 +9,7 @@ const chooseFormatter = (diff, format) => {
   if (format === 'json') {
     return renderJSON(diff);
   }
+
   return stylish(diff);
 };
 
