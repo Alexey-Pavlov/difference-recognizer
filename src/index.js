@@ -2,9 +2,9 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import parse from './parsers.js';
-import changeFormatter from './formatters/index';
+import format from './formatters/index';
 
-const getAst = (objFirstFile, objSecondFile) => {
+const getAst = (objFirst, objSecond) => {
   const iter = (data1, data2, key) => {
     const valueFirst = data1[key];
     const valueSecond = data2[key];
@@ -20,11 +20,11 @@ const getAst = (objFirstFile, objSecondFile) => {
     return { name, value: { old: valueFirst, new: valueSecond }, status: 'changed' };
   };
 
-  const keysFiles = _.union(Object.keys(objFirstFile), Object.keys(objSecondFile)).sort();
-  return keysFiles.map((key) => iter(objFirstFile, objSecondFile, key));
+  const keysFiles = _.union(Object.keys(objFirst), Object.keys(objSecond)).sort();
+  return keysFiles.map((key) => iter(objFirst, objSecond, key));
 };
 
-const compareResult = (firstPath, secondPath, format) => {
+const compareResult = (firstPath, secondPath, formatName) => {
   const dataFirst = fs.readFileSync(firstPath, 'utf-8');
   const dataSecond = fs.readFileSync(secondPath, 'utf-8');
 
@@ -35,7 +35,7 @@ const compareResult = (firstPath, secondPath, format) => {
   const afterObj = parse(dataSecond, typeSecond);
 
   const ast = getAst(beforeObj, afterObj);
-  return changeFormatter(ast, format);
+  return format(ast, formatName);
 };
 
 export default compareResult;

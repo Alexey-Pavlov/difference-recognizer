@@ -10,7 +10,7 @@ const parse = (data, type) => {
     case 'ini':
       return ini.decode(data);
     default:
-      throw new Error(`Unsupported type: '${type}'. Supported types: .json, .yml, .ini`);
+      throw new Error(`Unsupported type: '${type}'. Supported types: json, yml, ini`);
   }
 };
 

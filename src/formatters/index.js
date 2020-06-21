@@ -2,15 +2,15 @@ import stylish from './renderRecursive.js';
 import renderPlain from './renderPlain.js';
 import renderJSON from './renderJSON.js';
 
-const chooseFormatter = (diff, format) => {
-  if (format === 'plain') {
+const format = (diff, formatName) => {
+  if (formatName === 'plain') {
     return renderPlain(diff);
   }
-  if (format === 'json') {
+  if (formatName === 'json') {
     return renderJSON(diff);
   }
 
   return stylish(diff);
 };
 
-export default chooseFormatter;
+export default format;

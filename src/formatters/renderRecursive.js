@@ -37,7 +37,7 @@ const stylish = (ast) => {
     }
   });
 
-  return `{\n${(_.flattenDeep(iter(ast))).join('\n')}\n}`;
+  return `{\n${((iter(ast))).join('\n')}\n}`;
 };
 
 
